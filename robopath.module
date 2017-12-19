@@ -1,0 +1,30 @@
+<?php
+
+function robopath_block_info() {
+  $blocks['robopath_robo'] = array(
+    'info' => t('RoboPath Robot'),
+  );
+
+  return $blocks;
+}
+
+function robopath_block_view($delta = '') {
+  
+  switch($delta) {
+    case 'robopath_robo':
+      $block['subject'] = t('RoboPath Robot');
+	  	$block['content'] = robopath_generate();
+		  break;
+  }
+  return $block; 
+}
+
+function robopath_generate() {
+
+	$path = current_path();
+	$path_alias = drupal_lookup_path('alias',$path);
+	
+	$unique = $path_alias.'.png?size=50x50';
+	
+	return '<div><p><img src="https://robohash.org/'.$unique.'"></p></div>';
+}
